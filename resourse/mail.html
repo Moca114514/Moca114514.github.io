@@ -1,0 +1,114 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<style>
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+		}
+
+		#bgi{
+
+			position: absolute;
+			height: 100%;
+			width: 90%;
+			left: 5%;
+			opacity: 0.4;
+
+		}
+
+		#back{
+			position: absolute;
+			height: 90%;
+			top: 5%;
+			background-color: rgba(255,255,255,0.8);
+			width: 86%;
+			left: 7%;
+		}		
+
+		#text{
+			position: absolute;
+			top: 2%;
+			left: 2%;
+			font-size: 35px;
+		}
+
+		#text1{
+			position: absolute;
+			top: 10%;
+			left: 5%;
+			font-size: 25px;
+			letter-spacing: 3px;
+		}
+
+		#text2{
+			position: absolute;
+			top: 17%;
+			left: 5%;
+			font-size: 25px;
+			letter-spacing: 3px;
+		}
+
+		#text3{
+			position: absolute;
+			top: 24%;
+			left: 5%;
+			font-size: 25px;
+			letter-spacing: 3px;
+		}
+
+		#text4{
+			position: absolute;
+			top: 31%;
+			left: 5%;
+			font-size: 25px;
+			letter-spacing: 3px;
+		}
+
+		#chuchu{
+			position: absolute;
+			right: 4%;
+			bottom: 2%;
+			height: 17%;
+		}
+
+	</style>
+
+
+</head>
+	
+<body>
+
+	<img src="picture\mainpic4.jpg" id="bgi">
+	<div id="back"> 
+		<span id="text">
+			开 发 者 的 话 :
+		</span>
+		<span id="text1">
+			1.在游戏过程中,如果开始的几个键感觉明显音画不同步,请按F5或者页面右上角的重新开始图标重新开始游戏
+		</span>
+		<span id="text2">
+			2.目前只做了一首歌,开始之前没想到写一个谱面这么难QAQ,短短的一个曲子用了一天多的时间,尤其是到后面,对音很困难了
+		</span>
+		<span id="text3">
+			3.由于时间原因,很多想做的系统都还没来得及做(QAQ),大家在主页面看见的五个按钮只有1和3是能用的
+		</span>
+		<span id="text4">
+			4.点击chuchu返回主页面
+		</span>
+		<img src="..\gif\loading.gif" id="chuchu">
+	</div>
+</body>
+
+<script type="text/javascript">		
+		
+		document.getElementById('chuchu').onmousedown=function()
+		{
+			window.location.replace("mainPage.html");
+		}
+</script>
+</html>

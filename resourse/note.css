@@ -1,0 +1,268 @@
+@keyframes jump{
+			from{
+				bottom: 23%;
+			}
+			to{
+				bottom: 55%;
+			}
+		}
+
+		@keyframes down{
+			from{
+				bottom: 55%;
+			}
+			to{
+				bottom: 23%;
+			}
+		}
+
+		@keyframes run{
+			from{
+				right: 10%;
+			}
+			to{
+				right: 108%;
+			}
+		}
+
+		/*奶酪跑*/
+		@keyframes run2{
+			from{
+				right: 10%;
+			}
+			to{
+				right: 106%;
+			}
+		}
+
+		/*解决了选择对象错误的bug*/
+		@keyframes star{
+			from{
+				left: 87%;
+			}
+			to{
+				left: -2%;
+			}
+		}
+
+		@keyframes hold{
+			from{
+				left: 90%;
+			}
+			to{
+				left: 0%;
+			}
+		}
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+		}
+
+		body{
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			background-image: url("picture\\scene.png");
+			background-size: 100% 100%;
+		}
+
+		.groud{
+			position: absolute;
+			left: 2%;
+			bottom: 23%;
+			height: 23%;
+			animation-name: down;
+			animation-duration: 150ms;
+			z-index: 1;
+		}
+
+		/*幻影地面类,快速到达地面*/
+		.groud2{
+			position: absolute;
+			left: 2%;
+			bottom: 23%;
+			height: 23%;
+			animation-name: down;
+			animation-duration: 50ms;
+		}
+
+		/*空中类*/
+		.sky{
+			position: absolute;
+			left: 2%;
+			bottom: 55%;
+			height: 23%;
+			animation-name: jump;
+			animation-duration: 150ms;
+			z-index: 1;
+		}
+
+		/*幻影空中类*/
+		.sky2{
+			position: absolute;
+			left: 2%;
+			bottom: 55%;
+			height: 23%;
+			animation-name: jump;
+			animation-duration: 50ms;
+		}
+
+		/*上法阵*/
+		#magiaup{
+			position: absolute;
+			width: 8%;
+			left: 9%;
+			bottom: 57%;
+			z-index: 3;
+		}
+
+		/*下法阵*/
+		#magiadown{
+			position: absolute;
+			width: 8%;
+			left: 9%;
+			bottom: 25%;
+			z-index: 3;
+		}
+
+		/*第一类魔女*/
+		.witch1{
+			position: absolute;
+			width: 8%;
+			bottom: 23%;
+			right: 10%;
+			animation-name: run;
+			animation-duration: 1176ms;
+			animation-timing-function: linear;
+			z-index: 2;
+		}
+
+		/*被击倒的魔女*/
+		.wit1{
+			width: 8%;
+			position: absolute;
+		}
+
+		/*第二类魔女*/
+		.witch2{
+			position: absolute;
+			width: 8%;
+			bottom: 55%;
+			right: 10%;
+			animation-name: run;
+			animation-duration: 1176ms;
+			animation-timing-function: linear;
+			z-index: 2;
+		}
+
+		.hold1{
+			position: absolute;
+			bottom: 28%;
+			left: 90%;
+			height: 8%;
+			animation-name: hold;
+			animation-duration: 1080ms;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+		}
+
+		.hold2{
+			position: absolute;
+			bottom: 60%;
+			left: 90%;
+			height: 8%;
+			animation-name: hold;
+			animation-duration: 1080ms;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+		}
+
+
+		#assist{
+			display: none;
+			opacity: 0.4;
+		}
+
+		.pink{
+			position: absolute;
+			bottom: 25%;
+			width: 6%;
+			left: 87%;
+			z-index: 1;
+			animation-name: star;
+			animation-duration: 1068ms;
+			animation-timing-function: linear;
+		}
+
+		.blue{
+			position: absolute;
+			bottom: 57%;
+			width: 6%;
+			left: 87%;
+			z-index: 1;
+			animation-name: star;
+			animation-duration: 1068ms;
+			animation-timing-function: linear;
+		}
+
+		/*下奶酪类*/
+		.chessDown{
+			position: absolute;
+			bottom: 26%;
+			width: 6%;
+			right: 10%;
+			animation-name: run2;
+			animation-duration: 1152ms;
+			animation-timing-function: linear;
+		}
+
+		/*上奶酪类*/
+		.chessUp{
+			position: absolute;
+			bottom: 58%;
+			width: 6%;
+			right: 10%;
+			animation-name: run2;
+			animation-duration: 1152ms;
+			animation-timing-function: linear;
+		}
+
+		/*下齿轮类*/
+		.gearDown{
+			position: absolute;
+			bottom: 26%;
+			width: 6%;
+			right: 10%;
+			animation-name: run2;
+			animation-duration: 1152ms;
+			animation-timing-function: linear;
+		}
+
+		.gearUp{
+			position: absolute;
+			bottom: 58%;
+			width: 6%;
+			right: 10%;
+			animation-name: run2;
+			animation-duration: 1152ms;
+			animation-timing-function: linear;
+		}
+
+		/*下判定*/
+		#decideDown{
+			position: absolute;
+			height: 4%;
+			left: 14%;
+			bottom: 40%;
+			display: none;
+		}
+
+		/*上判定*/
+		#decideUp{
+			position: absolute;
+			height: 4%;
+			left: 14%;
+			bottom: 72%;
+			display: none;
+		}

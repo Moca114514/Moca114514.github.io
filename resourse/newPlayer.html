@@ -1,0 +1,502 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<style>
+		
+		body,div,img{
+			margin: 0;
+			padding: 0;
+			cursor: none;
+		}
+
+		@keyframes revolve{
+			/*旋转动画*/
+			from{
+				transform: rotateY(0);
+				transform-origin: 50% 50% 0;
+			}
+			to{
+				transform: rotateY(360deg);
+				transform-origin: 50% 50% 0;
+			}
+		}
+
+		@keyframes run{
+			from{
+				right: 10%;
+			}
+			to{
+				right: 83%;
+			}
+		}
+
+		@keyframes jump{
+			from{
+				bottom: 23%;
+			}
+			to{
+				bottom: 55%;
+			}
+		}
+
+		@keyframes down{
+			from{
+				bottom: 55%;
+			}
+			to{
+				bottom: 23%;
+			}
+		}
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+		}
+
+		body{
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			background-image: url("picture\\scene.png");
+			background-size: 100% 100%;
+		}
+
+		#leadear{
+			position: absolute;
+			bottom: 0;
+			animation-name: revolve;
+			animation-duration: 1s;
+			height: 30%;
+			left: 0;
+			z-index: 5;
+		}
+
+		#moca{
+			position: absolute;
+			bottom: 2%;
+			height: 20%;
+			width: 30%;
+			left: 12%;
+			background-color: rgba(255,255,255,0.6);
+		}
+
+		#name{
+			position: absolute;
+			left: 5%;
+			color: rgba(255,20,147,0.8);
+			font-size: 30px;
+		}
+
+		#text{
+			position: absolute;
+			left: 4%;
+			top: 30%;
+			color: rgba(0,0,0);
+			font-size: 25px;
+		}
+
+		#next{
+			position: absolute;
+			bottom: 2%;
+			right: 2%;
+			color: rgba(0,0,0,0.8);
+			font-size: 20px;
+		}
+
+		.witch1{
+			position: absolute;
+			width: 8%;
+			bottom: 23%;
+			right: 10%;
+			z-index: 2;
+			animation-name: run;
+			animation-duration: 924ms;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+		}
+
+		/*上法阵*/
+		#magiaup{
+			position: absolute;
+			width: 8%;
+			left: 9%;
+			bottom: 57%;
+			z-index: 3;
+		}
+
+		/*下法阵*/
+		#magiadown{
+			position: absolute;
+			width: 8%;
+			left: 9%;
+			bottom: 25%;
+			z-index: 3;
+		}
+
+		.groud{
+			position: absolute;
+			left: 2%;
+			bottom: 23%;
+			height: 23%;
+			animation-name: down;
+			animation-duration: 150ms;
+			z-index: 1;
+		}
+
+		/*幻影地面类,快速到达地面*/
+		.groud2{
+			position: absolute;
+			left: 2%;
+			bottom: 23%;
+			height: 23%;
+			animation-name: down;
+			animation-duration: 50ms;
+		}
+
+		/*空中类*/
+		.sky{
+			position: absolute;
+			left: 2%;
+			bottom: 55%;
+			height: 23%;
+			animation-name: jump;
+			animation-duration: 150ms;
+			z-index: 1;
+		}
+
+		/*幻影空中类*/
+		.sky2{
+			position: absolute;
+			left: 2%;
+			bottom: 55%;
+			height: 23%;
+			animation-name: jump;
+			animation-duration: 50ms;
+		}
+
+		.witch2{
+			position: absolute;
+			width: 8%;
+			bottom: 55%;
+			right: 10%;
+			animation-name: run;
+			animation-duration: 924ms;
+			animation-timing-function: linear;
+			animation-fill-mode: forwards;
+			z-index: 2;
+		}
+
+		#assist{
+			opacity: 0.6;
+			display: none;
+		}
+
+		#exit{
+    		position: absolute;
+    		top: 0;
+    		left: 0;
+    		height: 8%;
+    		width: 7%;
+    	}
+
+    	.mouse{
+        	width: 50px;
+        	position: fixed;
+        	z-index: 1000;
+        	pointer-events: none;
+    	}
+	</style>
+
+
+</head>
+	
+<body>
+
+	<img src="picture\leadear fever.png" id="leadear">
+	<img src="..\gif\attack.gif" id="assist">
+	<audio autoplay="on" id="dam"></audio>
+	<audio autoplay="on" id="at"></audio>
+	<audio autoplay="on" id="homo"></audio>
+	<audio autoplay="on" id="reward"></audio>
+	<audio autoplay="on" id="holdon" loop src="audio\hold.mp3"></audio>
+	<!-- 四个audio依次为 角色被攻击 角色出拳 怪物被攻击 奖励音效 hold音效-->
+	<div id="moca">
+		<span id="name">摩&nbsp;&nbsp;&nbsp;卡</span>
+		<span id="text"></span>
+		<span id="next">按 任 意 键 继 续</span>
+	</div>
+
+	<img src="picture\exit.png" id="exit">
+	<img class="mouse" src="picture\pointer.png">
+
+</body>
+
+<script type="text/javascript">		
+		
+		var ran=0;//记录操作
+		var text=document.getElementById('text');
+		var leadear=document.getElementById('leadear');
+		var body=document.querySelector("body");
+		var moca=document.getElementById('moca');
+		var hold;
+		var maho;
+		var dam=document.getElementById('dam');
+		var at=document.getElementById('at');
+		var homo=document.getElementById('homo');
+		var reward=document.getElementById('reward');
+		var holdon=document.getElementById('holdon');
+		var a;
+		var d;
+		var before1;
+		var next1;
+		var before2;
+		var next2;
+		var assist=document.getElementById('assist');
+		var newPlayer;
+
+		var mouse = document.querySelector('.mouse');
+    	window.addEventListener('mousemove',function(event){    
+    	mouse.style.left = event.clientX - mouse.offsetWidth/2 + 'px' ;
+    	mouse.style.top = event.clientY -mouse.offsetHeight/2 + 'px';       
+    	})	
+
+		function hold(event){
+			// 由于键盘事件没有办法判断出双hold和hold+tap(长按两个键时只显示一个,hold时如果再按tap hold事件就没有办法继续监听),我们只能舍弃双hold事件,同时严格限制hold+tap事件(只在hold的结尾可能出现tap),也就是说,tap一定出现在hold之后
+			if(event.keyCode==74){
+				before1=next1;
+				next1=Date.now();
+				if((next1-before1)<=60) {keyType="hold";}
+				else
+				{
+					if((next1-next2)<=80)
+					{
+						if((next2-before2)<=60) {keyType="tapHoldUp";}//上hold下tap
+						else {keyType="doubleTap";}//双押
+					}
+					else {keyType="tap";}//tap
+				}
+			}
+			else if(event.keyCode==70){
+				before2=next2;
+				next2=Date.now();
+				if((next2-before2)<=60) {keyType="hold";}
+				else
+				{
+					if((next2-next1)<=80)
+					{
+						if((next1-before1)<=60) {keyType="tapHoldDown";}//下hold上tap
+						else {keyType="doubleTap";}//双押
+					}
+					else {keyType="tap";}//tap
+				}
+			}
+		}
+
+		 window.onload=function()
+		 {
+		 		text.innerText="你 好 啊 , 新 来 的 魔 法 少 女";
+		 		if(localStorage.getItem("newPlayer")=="null")//返回一个字符串
+		 		{
+		 			document.getElementById('exit').style.display="none";
+		 		}
+		 		ran=1;
+		 		localStorage.setItem("newPlayer", 1);
+		 }
+
+		 function thing(event)
+		 {
+		 	if(ran==1)
+		 	{
+		 		text.innerText="我 是 魔 法 少 女 的 引 路 人 小 摩 卡";
+		 		leadear.src="picture\\leadear.png";
+		 		ran=2;
+		 	}
+		 	else if(ran==2)
+		 	{
+		 		text.innerText="和 我 一 起 阻 止 玛 吉 斯 , 拯 救 小 圆 的 命 运 吧 ";
+		 		ran=3;
+		 	}
+		 	else if(ran==3)
+		 	{ 
+		 		text.innerText="不 好 , 她 们 来 了";
+		 		leadear.src="picture\\leadear spring.png";
+		 		ran=4;
+		 	}
+		 	else if(ran==4)
+		 	{
+		 		leadear.style.display="none";
+		 		moca.style.display="none";
+		 		a=document.createElement("img");
+				a.src="..\\gif\\run.gif";
+				a.className="witch1";
+				body.appendChild(a);
+		 		var b=document.createElement("img");
+				b.src="picture\\magiaUp.png";
+				b.id="magiaup";
+				body.appendChild(b);
+				var c=document.createElement("img");
+				c.src="picture\\magiaDown.png";
+				c.id="magiadown";
+				body.appendChild(c);
+				maho=document.createElement("img");
+				maho.src="..\\gif\\hold.gif";
+				hold=maho.src;
+				maho.src="..\\gif\\wait.gif";
+				maho.className="groud";
+				body.appendChild(maho);
+				ran=5;
+		 	}
+		 	else if(ran==5)
+		 	{
+		 		moca.style.display="inline-block";
+		 		leadear.style.display="inline-block";
+		 		next.style.display="none";
+		 		leadear.src="picture\\leadear.png";
+		 		text.innerText="按 J 对 地 面 敌 人 进 行 攻 击 ";
+		 		if(event.keyCode==74)
+		 		{
+		 			ran=6;
+		 			a.src="..\\gif\\dead2.gif";
+		 			maho.src="..\\gif\\attack.gif";
+		 			homo.src="audio\\homo.mp3";
+		 			setTimeout(function(){a.remove(); maho.src="..\\gif\\wait.gif";},400);
+		 		}
+		 	}
+		 	if(ran==6)
+		 	{
+		 		next.style.display="inline-block";
+		 		text.innerText="太 棒 了 !";
+		 		leadear.src="picture\\leadear fever.png";
+		 		ran=7;
+		 	}
+		 	else if(ran==7)
+		 	{
+		 		leadear.src="picture\\leadear spring.png";
+		 		text.innerText="玛 吉 斯 又 从 上 面 进 攻 了";
+		 		ran=8;
+		 	}
+		 	else if(ran==8)
+		 	{
+		 		leadear.style.display="none";
+		 		moca.style.display="none";
+		 		a=document.createElement("img");
+				a.src="..\\gif\\run.gif";
+				a.className="witch2";
+				body.appendChild(a);
+		 		ran=9;
+		 	}
+		 	else if(ran==9)
+		 	{
+		 		moca.style.display="inline-block";
+		 		leadear.style.display="inline-block";
+		 		next.style.display="none";
+		 		leadear.src="picture\\leadear.png";
+		 		text.innerText="按 F 对 空 中 敌 人 进 行 攻 击 ";
+		 		if(event.keyCode==70)
+		 		{
+		 			ran=10;
+		 			a.src="..\\gif\\dead2.gif";
+		 			maho.src="..\\gif\\jump.png";
+		 			maho.className="sky";
+		 			homo.src="audio\\homo.mp3";
+		 			setTimeout(function(){a.remove(); maho.src="..\\gif\\wait.gif";},400);
+		 		}
+		 	}
+		 	if(ran==10)
+		 	{
+		 		next.style.display="inline-block";
+		 		text.innerText=" 别 忘 了 , 魔 法 少 女 会 飞 ";
+		 		leadear.src="picture\\leadear fever.png";
+		 		ran=11;
+		 	}
+		 	else if(ran==11)
+		 	{
+		 		leadear.src="picture\\leadear spring.png";
+		 		text.innerText="两 条 路 的 玛 吉 斯 一 起 进 攻 了";
+		 		ran=12;
+		 	}
+		 	else if(ran==12)
+		 	{
+		 		leadear.style.display="none";
+		 		moca.style.display="none";
+		 		a=document.createElement("img");
+				a.src="..\\gif\\run.gif";
+				a.className="witch2";
+				body.appendChild(a);
+		 		ran=13;
+		 		d=document.createElement("img");
+				d.src="..\\gif\\run.gif";
+				d.className="witch1";
+				body.appendChild(d);
+		 	}
+		 	else if((ran==13) && (keyType=="doubleTap"))
+		 	{
+		 		a.src="..\\gif\\dead2.gif";
+		 		d.src="..\\gif\\dead2.gif";
+		 		maho.src="..\\gif\\attack.gif";
+		 		homo.src="audio\\homo.mp3";
+		 		assist.style.display="inline-block";
+		 		assist.src="..\\gif\\down.png";
+		 		assist.className="groud2";
+		 		setTimeout(function(){a.remove(); d.remove(); assist.style.display="none"; maho.src="..\\gif\\wait.gif";},400);
+		 		ran=14;
+		 	}
+		 	else if(ran==13)
+		 	{
+		 		moca.style.display="inline-block";
+		 		leadear.style.display="inline-block";
+		 		next.style.display="none";
+		 		leadear.src="picture\\leadear.png";
+		 		text.innerText="同 时 按 下 F 和 J , 召 唤 吼 姆 拉 幻 影";
+		 	}
+		 	if(ran==14)
+		 	{
+		 		next.style.display="inline-block";
+		 		text.innerText=" 太 棒 了 , 你 已 经 是 一 个 能 独 当 一 面 的 魔 法 少 女 了 ";
+		 		leadear.src="picture\\leadear fever.png";
+		 		ran=15;
+		 	}
+		 	else if(ran==15)
+		 	{
+		 		text.innerText=" 在 以 后 的 战 斗 中 , 你 还 可 能 遇 到 各 种 各 样 的 事 情 ";
+		 		ran=16;
+		 	}
+		 	else if(ran==16)
+		 	{
+		 		text.innerText="比 如 古 老 的 吟 唱 魔 法 , 需 要 长 按 进 行 吟 唱";
+		 		ran=17;
+		 	}
+		 	else if(ran==17)
+		 	{
+		 		text.innerText="玛 吉 斯 可 怕 的 机 关 陷 阱";
+		 		ran=18;
+		 	}
+		 	else if(ran==18)
+		 	{ 
+		 		text.innerText="还 有 零 食 魔 女 的 小 点 心 , 吃 完 可 以 增 加 分 数";
+		 		ran=19;
+		 	}
+		 	else if(ran==19)
+		 	{
+		 		text.innerText="如 果 以 后 还 想 再 看 新 手 教 程 的 话 , 可 以 在 主 页 面 的 第 一 栏 找 到 我";
+		 		ran=20;
+		 	}
+		 	else if(ran==20)
+		 	{
+		 		text.innerText="就 是 这 样 啦 , 再 会 了 , 魔 法 少 女";
+		 		ran=21;
+		 	}
+		 	else if(ran==21)
+		 	{
+		 		window.location.replace("mainPage.html");
+		 	}
+		 }
+
+		document.addEventListener("keydown",hold,false);
+		document.addEventListener("keydown",thing,false);
+
+</script>
+</html>

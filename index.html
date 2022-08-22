@@ -1,0 +1,65 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<style>
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+			cursor: none;
+		}
+
+		body{
+			background-image: url("resourse\\picture\\mainpic4.jpg");
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			}
+
+		#text{
+			position: absolute;
+			color: rgba(255,255,255);
+			bottom: 6%;
+			font-size: 45px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.mouse{
+        	width: 50px;
+        	position: fixed;
+        	z-index: 1000;
+        	pointer-events: none;
+    	}
+	</style>
+
+
+</head>
+	
+<body>
+
+	<span id="text">
+		按 &nbsp;&nbsp;任 &nbsp;&nbsp;意 &nbsp;&nbsp;键 &nbsp;&nbsp;继 &nbsp;&nbsp;续
+	</span>
+	<img class="mouse" src="resourse\picture\pointer.png">
+</body>
+
+<script type="text/javascript">	
+	
+		var mouse = document.querySelector('.mouse');
+    	window.addEventListener('mousemove',function(event){    
+    	mouse.style.left = event.clientX - mouse.offsetWidth/2 + 'px' ;
+    	mouse.style.top = event.clientY -mouse.offsetHeight/2 + 'px';       
+    	})	
+		
+		var newPlayer=localStorage.getItem("newPlayer");
+		var page;
+		window.onkeydown=function(event)
+		{
+			if(newPlayer=="null") {window.location.replace("resourse\\newPlayer.html");}
+			else {window.location.replace("resourse\\mainPage.html");}
+		}
+</script>
+</html>

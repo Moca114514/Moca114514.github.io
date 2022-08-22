@@ -1,0 +1,358 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<link rel="stylesheet" href="note.css">
+	<style>
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+			cursor: none;
+		}
+
+		#text{
+			position: absolute;
+			color: rgba(255,255,255);
+			bottom: 6%;
+			font-size: 45px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.mouse{
+        	width: 50px;
+        	position: fixed;
+        	z-index: 1000;
+        	pointer-events: none;
+    	}
+
+    	#restart{
+    		position: absolute;
+    		top: 0;
+    		right: 0;
+    		height: 8%;
+    		width: 7%;
+    	}
+
+    	#exit{
+    		position: absolute;
+    		top: 0;
+    		left: 0;
+    		height: 8%;
+    		width: 7%;
+    	}
+	</style>
+
+</head>
+	
+<body>
+
+	<img src="..\gif\hold.gif" id="chara" class="groud">
+	<img src="picture\magiaUp.png" id="magiaup">
+	<img src="picture\magiaDown.png" id="magiadown">
+	<img src="..\gif\attack.gif" id="assist">
+	<img src="" id="decideDown">
+	<img src="" id="decideUp">
+	<audio autoplay="on" id="dam"></audio>
+	<audio autoplay="on" id="at"></audio>
+	<audio autoplay="on" id="homo"></audio>
+	<audio autoplay="on" id="reward"></audio>
+	<audio autoplay="on" id="holdon" loop src="audio\hold.mp3"></audio>
+	<!-- 四个audio依次为 角色被攻击 角色出拳 怪物被攻击 奖励音效 hold音效-->
+
+	<audio autoplay="on" id="bgm"></audio>
+	<img class="mouse" src="picture\pointer.png">
+
+	<span id="text">
+		按 &nbsp;&nbsp;任 &nbsp;&nbsp;意 &nbsp;&nbsp;键 &nbsp;&nbsp;开 &nbsp;&nbsp;始
+	</span>
+
+	<img src="picture\restart.png" id="restart">
+	<img src="picture\exit.png" id="exit">
+
+
+</body>
+<script type="text/javascript" src="note.js">	</script>
+<script type="text/javascript">
+
+	var bgm=document.getElementById('bgm');
+	var isShow=true;//控制window.onload只执行一次
+
+	var mouse = document.querySelector('.mouse');
+    window.addEventListener('mousemove',function(event){    
+    mouse.style.left = event.clientX - mouse.offsetWidth/2 + 'px' ;
+    mouse.style.top = event.clientY -mouse.offsetHeight/2 + 'px';       
+    })
+
+	//来记录hold的地址,并且让用户只有敲击一次键盘后才能操作,这么做的原因在于如果用户不进行任何操作,那么浏览器将禁止autoplay
+	window.onload=function(  ){
+			holdAddress=maho.src;
+			maho.src="..\\gif\\wait.gif";
+			holdon.pause();
+			bgm.pause();
+			clearTimeout(timer);
+			window.onkeydown=function()
+			{
+				if(isShow)
+				{	
+					bgm.src="music\\song1.mp3";
+					bgm.volume="0.5";
+					document.getElementById('text').style.display="none";
+
+					// 以下是谱面,create函数在note.js里,精神折磨
+					create(1,300,0);
+					create(1,550,0);
+					create(2,150,0);
+					create(1,250,0);
+					create(2,550,0);
+					create(1,200,0);
+					create(2,0,0);//3.2s
+					create(7,300,0);
+					create(1,300,0);
+					create(2,300,0);
+					create(2,200,0);
+					create(1,200,0);
+					create(1,250,0);
+					create(1,300,0);//5.05s
+					create(7,300,0);
+					create(1,300,0);
+					create(1,250,0);
+					create(1,150,0);
+					create(2,250,0);
+					create(2,300,0);
+					create(2,300,0);
+					create(1,0,0);//6.9s
+					create(7,300,0);
+					create(1,350,0);
+					create(2,350,0);
+					create(1,200,0);
+					create(2,200,0);
+					create(1,250,0);
+					create(2,0,0);//8.55s
+					create(7,350,0);
+					create(1,300,0);
+					create(2,200,0);
+					create(1,400,0);
+					create(1,400,0);
+					create(2,300,0);
+					create(2,450,0);
+					create(1,450,0);
+					create(1,200,0);
+					create(2,200,0);
+					create(1,300,0);
+					create(1,200,0);
+					create(1,200,0);
+					create(1,200,0);//12.7s
+					create(7,300,0);
+					create(1,200,0);
+					create(2,300,0);
+					create(2,400,0);
+					create(2,250,0);
+					create(1,350,0);//14.5s
+					create(7,300,0);
+					create(1,400,0);
+					create(1,200,0);
+					create(2,350,0);
+					create(5,150,0);
+					create(1,350,0);//16.25s
+					create(1,250,0);
+					create(2,400,0);
+					create(1,300,0);
+					create(2,300,0);
+					create(5,200,0);
+					create(5,100,0);
+					create(5,100,0);
+					create(2,200,0);//18.1s
+					create(2,400,0);
+					create(1,250,0);
+					create(1,150,0);
+					create(1,400,0);
+					create(2,0,0);
+					create(5,200,0);
+					create(5,100,0);
+					create(2,300,0);
+					create(2,200,0);
+					create(1,200,0);
+					create(2,200,0);
+					create(1,300,0);
+					create(2,0,0);//20.8s
+					create(5,300,0);
+					create(5,100,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(1,200,0);
+					create(2,200,0);
+					create(1,300,0);
+					create(5,300,0);
+					create(5,100,0);
+					create(2,400,0);//23.3s
+					create(2,400,0);
+					create(1,400,0);
+					create(1,200,0);
+					create(1,400,0);
+					create(2,0,0);
+					create(1,400,0);
+					create(1,400,0);
+					create(1,150,0);
+					create(1,200,0);//25.8s
+					create(1,450,0);
+					create(4,100,21);
+					create(1,500,0);
+					create(2,100,0);//27s
+					create(2,600,0);
+					create(1,200,0);
+					create(1,200,0);
+					create(2,300,0);
+					create(1,200,0);
+					create(2,0,0);
+					create(1,700,0);
+					create(1,200,0);
+					create(2,600,0);
+					create(2,300,0);
+					create(7,0,0)//30.3s
+					create(1,300,0);
+					create(2,400,0);
+					create(2,200,0);
+					create(2,200,0);
+					create(1,400,0);
+					create(2,300,0);
+					create(7,0,0);
+					create(1,500,0);
+					create(2,0,0);
+					create(2,500,0);//33.1s
+					create(2,300,0);
+					create(3,100,33);
+					create(2,600,0);
+					create(1,300,0);
+					create(2,300,0);
+					create(1,300,0);
+					create(2,200,0);
+					create(1,300,0);
+					create(2,300,0);
+					create(2,200,0);
+					create(4,150,21);
+					create(1,550,0);
+					create(1,400,0);
+					create(1,300,0);
+					create(2,500,0);
+					create(1,200,0);
+					create(1,400,0);//38.5s
+					create(3,1000,71);
+					create(5,200,0);
+					create(2,700,0);
+					create(2,300,0);
+					create(1,200,0);
+					create(1,300,0);
+					create(7,200,0);
+					create(1,200,0);
+					create(1,200,0);
+					create(2,400,0);
+					create(1,300,0);
+					create(2,300,0);
+					create(2,300,0);
+					create(2,300,0);
+					create(2,200,0);
+					create(8,400,0);
+					create(1,0,0);//44.1s
+					create(2,200,0);
+					create(1,200,0);
+					create(1,300,0);
+					create(2,200,0);
+					create(1,200,0);
+					create(2,200,0);
+					create(1,500,0);
+					create(1,200,0);
+					create(1,400,0);//46.5s
+					create(2,400,0);
+					create(2,200,0);
+					create(1,200,33);
+					create(8,0,0);
+					create(2,700,0);
+					create(1,400,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(1,300,25);
+					create(2,300,0);
+					create(2,200,0);
+					create(2,300,0);
+					create(7,0,0);
+					create(1,400,0);
+					create(8,0,0);
+					create(2,200,0);
+					create(2,300,0);
+					create(1,400,0);
+					create(2,300,0);
+					create(1,500,133);
+					create(6,200,0);
+					create(6,200,0);
+					create(6,200,0);
+					create(6,200,0);
+					create(6,200,0);
+					create(6,200,0);
+					create(6,200,0);//53.6s
+					create(2,400,0);
+					create(1,200,0);
+					create(8,0,0);
+					create(2,200,0);
+					create(1,400,0);
+					create(2,200,0);
+					create(7,0,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(2,0,0);
+					create(1,300,0);
+					create(1,200,0);
+					create(8,0,0);
+					create(1,200,0);
+					create(2,400,0);//56.7s
+					create(2,200,0);
+					create(7,0,0);
+					create(2,200,0);
+					create(2,500,0);
+					create(1,200,0);
+					create(8,0,0);
+					create(2,200,0);
+					create(1,500,0);
+					create(2,200,0);
+					create(1,400,0);//59.1s
+					create(2,300,0);
+					create(1,200,0);
+					create(8,0,0);
+					create(1,200,0);
+					create(2,300,0);
+					create(2,300,0);
+					create(1,300,0);//60.7s
+					create(5,300,0);
+					create(5,300,0);
+					create(5,300,0);
+					create(2,400,0);
+					create(1,250,0);
+					create(8,0,0);
+					create(1,250,0);//62.5s
+					create(2,400,0);
+					create(2,300,0);
+					create(2,200,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(1,300,0);
+					create(5,200,0);
+
+					isShow=!isShow;//确保函数只执行一次
+				}
+			};
+		}
+
+		document.getElementById('restart').onmousedown=function()
+		{
+			document.location.reload();
+		}
+		document.getElementById('exit').onmousedown=function()
+		{
+			document.location.replace("mainPage.html");
+		}
+</script>
+</html>

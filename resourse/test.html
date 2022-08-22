@@ -1,0 +1,90 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<link rel="stylesheet" href="note.css">
+	<style>
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+			cursor: none;
+		}
+
+		#text{
+			position: absolute;
+			color: rgba(255,255,255);
+			bottom: 6%;
+			font-size: 45px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.mouse{
+        	width: 50px;
+        	position: fixed;
+        	z-index: 1000;
+        	pointer-events: none;
+    	}
+	</style>
+
+</head>
+	
+<body>
+
+	<img src="..\gif\hold.gif" id="chara" class="groud">
+	<img src="picture\magiaUp.png" id="magiaup">
+	<img src="picture\magiaDown.png" id="magiadown">
+	<img src="..\gif\attack.gif" id="assist">
+	<img src="" id="decideDown">
+	<img src="" id="decideUp">
+	<audio autoplay="on" id="dam"></audio>
+	<audio autoplay="on" id="at"></audio>
+	<audio autoplay="on" id="homo"></audio>
+	<audio autoplay="on" id="reward"></audio>
+	<audio autoplay="on" id="holdon" loop src="audio\hold.mp3"></audio>
+	<!-- 四个audio依次为 角色被攻击 角色出拳 怪物被攻击 奖励音效 hold音效-->
+
+	<audio autoplay="on" id="bgm"></audio>
+	<img class="mouse" src="picture\pointer.png">
+
+	<span id="text">
+		按 &nbsp;&nbsp;任 &nbsp;&nbsp;意 &nbsp;&nbsp;键 &nbsp;&nbsp;继 &nbsp;&nbsp;续
+	</span>
+
+
+
+</body>
+<script type="text/javascript" src="note.js">	</script>
+<script type="text/javascript">
+
+	var bgm=document.getElementById('bgm');
+	var isShow=true;//控制window.onload只执行一次
+
+	var mouse = document.querySelector('.mouse');
+    window.addEventListener('mousemove',function(event){    
+    mouse.style.left = event.clientX - mouse.offsetWidth/2 + 'px' ;
+    mouse.style.top = event.clientY -mouse.offsetHeight/2 + 'px';       
+    })
+
+	//来记录hold的地址,并且让用户只有敲击一次键盘后才能操作,这么做的原因在于如果用户不进行任何操作,那么浏览器将禁止autoplay
+	window.onload=function(  ){
+			holdAddress=maho.src;
+			maho.src="..\\gif\\wait.gif";
+			holdon.pause();
+			clearTimeout(timer);
+			window.onkeydown=function()
+			{
+				if(isShow)
+				{	
+					document.getElementById('text').style.display="none";
+					create(3,300,100);
+
+					isShow=!isShow;//确保函数只执行一次
+				}
+			};
+		}
+</script>
+</html>

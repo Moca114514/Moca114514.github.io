@@ -1,0 +1,507 @@
+<! doctype html>
+<html>
+
+<head>
+
+	<title>Homura Dash</title>
+	<style>
+
+		body,div,img{
+			margin: 0;
+			padding: 0;
+			cursor: none;
+		}
+
+		img{
+			position: absolute;
+		}
+
+		body{
+			background-image: url("picture\\scene.png");
+			background-size: 100% 100%;
+		}
+
+		.mouse{
+        	width: 60px;
+        	position: fixed;
+        	z-index: 1000;
+        	pointer-events: none;
+    	}
+		/*顶部大盒子样式*/
+		#top{
+			position: absolute;
+			width: 100%;
+			height: 13%;
+			background: #483D8B;
+		}
+
+		#bgm{
+			height: 100%;
+			width: 15%;
+			position: absolute;
+			right: 0;
+		}
+
+		#mail{
+			 height: 100%;
+			 width: 15%;
+			 position: absolute;
+			 left: 0;
+		}
+
+		#off{
+			height: 100%;
+			width: 15%;
+			position: absolute;
+			right: 0;
+		}
+
+		#bottom{
+			height: 16%;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			background: black;
+		}
+
+		#Moca1{
+			height: 15%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 17%;
+		}
+
+		#Moca{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+
+		#Moca2{
+			left: 30%;
+			top: 18%;
+			height: 60%;
+		}
+
+		#chara3{
+			width: 18%;
+			height: 15%;
+			position: absolute;
+			bottom: 0;
+			left: 12.9%;
+		}
+
+		#chara{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+
+		#chara2{
+			left: 33%;
+			top: 19%;
+			height: 58%;
+		}
+
+		#enter{
+			position: absolute;
+			height: 15%;
+			width: 46.2%;
+			left: 26.9%;
+			bottom: 0;
+		}
+
+		#enterl{
+			height: 100%;
+			width: 51%;
+			position: absolute;
+			left: 0;
+			z-index: 0;
+		}
+
+
+		#enterr{
+			height: 100%;
+			width: 51%;
+			position: absolute;
+			right: 0;
+			z-index: 0;
+		}
+
+		#enter1{
+			position: absolute;
+			width: 30%;
+			left: 35%;
+			top: 15%;
+		}
+
+		#pack3{
+			width: 18%;
+			height: 15%;
+			position: absolute;
+			bottom: 0;
+			right: 12.9%;
+		}
+
+		#pack{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+
+		#pack2{
+			left: 34.5%;
+			top: 19%;
+			height: 56%;
+		}
+
+		#achieve1{
+			width: 17%;
+			height: 15%;
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+
+		#achieve{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+
+		#achieve2{
+			left: 44.5%;
+			top: 23%;
+			height: 56%;
+		}
+
+		#mhsj{
+			height: 65%;
+			position: absolute;
+			left: 28%;
+			bottom: 16%;
+		}
+
+		#pet{
+			position: absolute;
+			top: 10%;
+			height: 80%;
+			left: 11%;
+		}
+	</style>
+
+
+</head>
+	
+
+
+<body>
+
+	<!-- 设置顶部样式 -->
+	<div id="top">
+		<canvas id="bgm"></canvas>
+		<canvas id="off"></canvas>
+		<canvas id="mail"></canvas>
+	</div>
+	<audio src="music\MainPageBgm.mp3" id="Bgm" loop="on" autoplay="on"></audio>
+
+
+	<audio src="" autoplay="on" id="voice"></audio>
+
+
+	<!-- 设置底部样式 -->
+	<!-- 单开一个div装背景 -->
+	<div id="bottom"></div>
+
+	<!-- 我们为什么要把图片和画板一起放在div里,第一,如果用画板引入图片,图层将使用特殊方法去除,不利于动态效果;第二,无法直接在canvas标签中嵌套img标签;第三,如果图片和画板不在一个div里,图片的尺寸和位置将难以调整 -->
+	<div id="Moca1">
+	<canvas id="Moca"></canvas>
+	<img src="picture\leadear.png" id="Moca2">
+	</div>
+
+	<div id="chara3">
+	<canvas id="chara"></canvas>
+	<img src="picture\pet.png" id="chara2">
+	</div>
+
+	<div id="enter">
+	<canvas id="enterl"></canvas>
+	<canvas id="enterr"></canvas>
+	<img id="enter1" src="picture\enter.png">
+	</div>
+
+	<div id="pack3">
+	<canvas id="pack"></canvas>
+	<img src="picture\pack.png" id="pack2">
+	</div>
+
+	<div id="achieve1">
+	<canvas id="achieve"></canvas>
+	<img src="picture\achieve fever.png" id="achieve2">
+	</div>
+
+	<img src="picture\chara1.gif" id="mhsj">
+	<img src="picture\pet.gif" id="pet">
+	<img class="mouse" src="picture\pointer.png">
+	 
+</body>
+
+
+
+<script type="text/javascript">
+
+	// 自定义光标JS部分代码
+	var mouse = document.querySelector('.mouse');
+    window.addEventListener('mousemove',function(event){    
+    mouse.style.left = event.clientX - mouse.offsetWidth/2 + 'px' ;
+    mouse.style.top = event.clientY -mouse.offsetHeight/2 + 'px';       
+    })
+
+	//设置voice canvas的样式
+	var canvas=document.getElementById('bgm');
+	var context=canvas.getContext('2d');
+	var x=canvas.width;
+	var y=canvas.height;
+	var grad=context.createLinearGradient(x,0,0,y);
+	grad.addColorStop(1,"#9400D3");
+	grad.addColorStop(0,"#FF00F0");
+	context.beginPath();
+	context.moveTo(x*0.276 , 0);
+	context.lineTo(x , 0);
+	context.lineTo(x , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	context.fillStyle=grad;
+	context.fill();
+	//在voice canvas中加入voice图片(在画布里加图片时,不能简单地用图片的嵌套)
+	//注意一：几个canvas会在图片之前加载,所以img.onload执行时context对象已经变成了最后一个canvas，而不是我们想要的voice canvas,所以单独用一个变量(t)储存voice canvas
+	//注意二：为什么要加image.onload,是因为如果不加,在画的时候图片资源加载不出来,图片不会显示在画布上
+	var img=new Image();
+	var t=canvas.getContext('2d');
+	img.src="picture\\RC.png";
+	img.onload=function() {
+	t.drawImage(img , x*0.37 , y*0.2 , x*0.5 , y*0.6);//两组参数分别为图片的起始点和大小
+	}
+
+	//关闭声音时的小样式(默认关闭声音)
+	//我们默认关闭声音,其实有着更深层次的原因：一个巨大的问题摆在我们眼前,就是现在的浏览器为了增强用户的体验,默认关闭了音频多媒体的autoplay属性,即使设置了autoplay,浏览器也不会自动开启音频 所以我们选择将背景音乐与一个鼠标点击时间绑定在一起
+	canvas=document.getElementById('off');
+	var context=canvas.getContext('2d');//x y 不需要改变,因为两个画板一样大
+	context.beginPath();
+	context.moveTo(x*0.34 , y*0.1);
+	context.lineTo(x*0.89 , y*0.8);
+	context.lineTo(x*0.86 , y*0.87);
+	context.lineTo(x*0.31 , y*0.17);
+	context.fillStyle="rgba(220,220,220,0.4)";
+	context.fill();
+
+	//点击voice的函数
+	//我们下面两个函数的逻辑是这样的：当音乐暂停时,off画板浮在voice画板上层,所以点击到的是off;当音乐播放时, off画板会消失,用户再点击,只能点击到原来位于下层的画板voice
+	var off=document.getElementById('off');
+	var bgm=document.getElementById('Bgm');
+	var voice=document.getElementById('bgm');
+	window.onload=function(){
+		bgm.volume="0.5";
+	}
+	off.onclick=function(){
+		bgm.play();
+		off.style.display="none";
+	}
+	voice.onclick=function(){
+		bgm.pause();
+		off.style.display="inline";
+	}
+
+	//关于图标,x y 没变
+	canvas=document.getElementById('mail');
+	context=canvas.getContext('2d');
+	grad=context.createLinearGradient(0,0,x,y);
+	grad.addColorStop(1,"#9400D3");
+	grad.addColorStop(0,"#FF00F0");
+	context.beginPath();
+	context.moveTo(0 , 0);
+	context.lineTo(x*0.724 , 0);
+	context.lineTo(x , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	context.fillStyle=grad;
+	context.fill();
+	var img2=new Image();//注意：这里如果继续使用img作为变量,则上面的window.onload里的img也会变成这个变量
+	var m=canvas.getContext('2d');
+	img2.src="picture\\R.png";
+	img2.onload=function() {
+	m.drawImage(img2 , x*0.15 , y*0.2 , x*0.5 , y*0.6);//两组参数分别为图片的起始点和大小
+	}
+
+	// 利用canvas绘制梯形样式
+	canvas=document.getElementById('Moca');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;//根据页面大小显示,增强用户体验(canvas不支持直接用百分比设置点的位置)
+	grad=context.createLinearGradient(0,0,x,y);//设置线性渐变色
+	grad.addColorStop(1,"#9400D3");
+	grad.addColorStop(0,"#FF00F0");
+	context.beginPath();
+	context.moveTo(0,0);	
+	context.lineTo(x*0.7 , 0);
+	context.lineTo(x , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	context.fillStyle=grad;
+	context.fill();
+	//在画板里绘制圆
+	context.beginPath();//重新定义新图案,这样就不会给画板的其余部分涂色,现在context变成了圆
+	context.arc(x*0.4 , y*0.5 , x*0.2 , 0 , 2*Math.PI ,true);//这几个参数分别是:圆心,半径,起点,终点,方向
+	context.fillStyle="#5f157f";
+	context.fill();
+	var img3=document.getElementById('Moca2');
+	document.getElementById('Moca1').onmouseover=function(){
+		img3.src="picture\\leadear fever.png";
+	}
+	document.getElementById('Moca1').onmouseout=function(){
+		img3.src="picture\\leadear.png";
+	}
+	document.getElementById('Moca1').onmousedown=function(){
+		window.location.replace("newPlayer.html");
+	}
+
+	//绘制第一个平行四边形
+	canvas =document.getElementById('chara');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;
+	context.beginPath();
+	context.moveTo(0 , 0);
+	context.lineTo(x*0.717 , 0);
+	context.lineTo(x , y);
+	context.lineTo(x*0.283 , y);
+	context.closePath();
+	context.fillStyle=grad;//grad只需要声明一次
+	context.fill();
+	context.beginPath();
+	context.arc(x*0.47 , y*0.5 , x*0.21 , 0 , 2*Math.PI ,true);
+	context.fillStyle="#5f157f";
+	context.fill();
+	var img4=document.getElementById('chara2');
+	document.getElementById('chara3').onmouseover=function(){
+		img4.src="picture\\pet fever.png";
+	}
+	document.getElementById('chara3').onmouseout=function(){
+		img4.src="picture\\pet.png";
+	}
+
+	//绘制主区块,由于对称效果设置了两个
+	canvas=document.getElementById('enterl');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;
+	context.beginPath();
+	context.moveTo(0 , 0);
+	context.lineTo(x , 0);
+	context.lineTo(x , y);
+	context.lineTo(x*0.22 , y);
+	context.closePath();
+	//重新为主区块设置渐变色
+	grad=context.createLinearGradient(x,y,0,0);
+	grad.addColorStop(1,"#FF00F0");
+	grad.addColorStop(0,"#9400D3");
+	context.fillStyle=grad;
+	context.fill();
+	canvas=document.getElementById('enterr');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;
+	context.beginPath();
+	context.moveTo(0 , 0);
+	context.lineTo(x , 0);
+	context.lineTo(x*0.78 , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	grad=context.createLinearGradient(0,y,x,0);
+	grad.addColorStop(1,"#FF00F0");
+	grad.addColorStop(0,"#9400D3");
+	context.fillStyle=grad;
+	context.fill();
+	document.getElementById('enterl').onmousedown=function(){
+		window.location.replace('song1.html');
+	}
+	document.getElementById('enterr').onmousedown=function(){
+		window.location.replace('song1.html');
+	}
+
+	//绘制第二个对称的平行四边形
+	canvas =document.getElementById('pack');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;
+	context.beginPath();
+	context.moveTo(x*0.283 , 0);
+	context.lineTo(x , 0);
+	context.lineTo(x*0.717 , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	context.fillStyle=grad;
+	context.fill();
+	context.beginPath();
+	context.arc(x*0.47 , y*0.5 , x*0.21 , 0 , 2*Math.PI ,true);
+	context.fillStyle="#5f157f";
+	context.fill();
+	var img5=document.getElementById('pack2');
+	document.getElementById('pack3').onmouseover=function(){
+		img5.src="picture\\pack fever.png";
+	}
+	document.getElementById('pack3').onmouseout=function(){
+		img5.src="picture\\pack.png";
+	}
+
+	//绘制第二个对称的梯形
+	canvas=document.getElementById('achieve');
+	context=canvas.getContext('2d');
+	x=canvas.width;
+	y=canvas.height;
+	context.beginPath();
+	context.moveTo(x*0.3 , 0);	
+	context.lineTo(x , 0);
+	context.lineTo(x , y);
+	context.lineTo(0 , y);
+	context.closePath();
+	context.fillStyle=grad;
+	context.fill();
+	context.beginPath();
+	context.arc(x*0.57 , y*0.5 , x*0.21 , 0 , 2*Math.PI ,true);
+	context.fillStyle="#5f157f";
+	context.fill();
+	var img6=document.getElementById('achieve2');
+	document.getElementById('achieve1').onmouseover=function(){
+		img6.src="picture\\achieve.png";
+	}
+	document.getElementById('achieve1').onmouseout=function(){
+		img6.src="picture\\achieve fever.png";
+	}
+	document.getElementById('achieve1').onmousedown=function(){
+		window.location.replace("setting.html");
+	}
+
+	// 点击角色播放语音的函数,一名角色有六条语音
+	var hmr=document.getElementById('mhsj');
+	var voice=document.getElementById('voice');
+	hmr.onclick=function(){
+		voice.src="voice\\hmr.mp3";
+	}
+
+	window.onkeydown=function(event)
+	{
+		if(event.keyCode==13) {window.location.replace("song1.html");}
+	}
+
+	document.getElementById('mail').onmousedown=function()
+	{
+		window.location.replace("mail.html");
+	}
+	window.onload=function()
+	{
+		document.getElementById('Bgm').pause();
+	}
+</script>
+</html>
